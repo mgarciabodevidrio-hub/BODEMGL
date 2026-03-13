@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Grupo Bodevidrio | Presentación Corporativa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#1597d4;
+      --brand2:#28b8ff;
+      --bg1:#04131d;
+      --bg2:#0a2435;
+      --glass:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.14);
+      --text-soft:rgba(255,255,255,.78);
+      --shadow:0 20px 60px rgba(0,0,0,.30);
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html,body{
+      margin:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      font-family:'Outfit',sans-serif;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#fff;
+    }
+
+    body{
+      position:relative;
+      user-select:none;
+      touch-action:manipulation;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(21,151,212,.18), transparent 22%),
+        radial-gradient(circle at 82% 14%, rgba(126,231,255,.08), transparent 22%),
+        radial-gradient(circle at 50% 90%, rgba(255,255,255,.05), transparent 28%),
+        linear-gradient(135deg, #04131d 0%, #0a2435 52%, #071d2b 100%);
+    }
+
+    .bg-orb,.bg-orb-2,.bg-grid,.light-sweep{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .bg-orb::before,.bg-orb-2::before{
+      content:"";
+      position:absolute;
+      width:34vw;
+      height:34vw;
+      border-radius:50%;
+      filter:blur(72px);
+      opacity:.28;
+    }
+
+    .bg-orb::before{
+      left:-6vw;
+      top:-10vh;
+      background:rgba(21,151,212,.35);
+      animation:floatA 16s ease-in-out infinite;
+    }
+
+    .bg-orb-2::before{
+      right:-8vw;
+      bottom:-16vh;
+      background:rgba(126,231,255,.18);
+      animation:floatB 18s ease-in-out infinite;
+    }
+
+    .bg-grid{
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:34px 34px;
+      mask-image:radial-gradient(circle at center, black 30%, transparent 85%);
+      opacity:.22;
+    }
+
+    .light-sweep::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,.06) 35%, transparent 52%);
+      transform:translateX(-120%);
+      animation:sweep 10s linear infinite;
+    }
+
+    @keyframes floatA{
+      0%,100%{transform:translate(0,0) scale(1);}
+      50%{transform:translate(6vw,6vh) scale(1.08);}
+    }
+
+    @keyframes floatB{
+      0%,100%{transform:translate(0,0) scale(1);}
+      50%{transform:translate(-5vw,-6vh) scale(.95);}
+    }
+
+    @keyframes sweep{
+      0%{transform:translateX(-120%);}
+      100%{transform:translateX(120%);}
+    }
+
+    @keyframes bob{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-6px);}
+    }
+
+    @keyframes pulseSoft{
+      0%,100%{box-shadow:0 0 0 0 rgba(40,184,255,.18);}
+      50%{box-shadow:0 0 0 18px rgba(40,184,255,0);}
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(20px) scale(.98);}
+      to{opacity:1;transform:translateY(0) scale(1);}
+    }
+
+    @keyframes fadeInUp{
+      from{opacity:0;transform:translateY(30px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    @keyframes shimmer{
+      100%{left:100%;}
+    }
+
+    .glass{
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+    }
+
+    /* LOCK SCREEN */
+    .lock-screen{
+      position:fixed;
+      inset:0;
+      z-index:30;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-direction:column;
+      overflow:hidden;
+      padding:24px 32px 28px;
+      transition:opacity .9s ease,transform .9s ease,visibility .9s ease;
+      background:#000;
+      font-family:'Plus Jakarta Sans','Outfit',sans-serif;
+    }
+
+    .lock-screen.hidden{
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(-100%);
+      pointer-events:none;
+    }
+
+    .carousel-container{
+      position:absolute;
+      inset:0;
+      z-index:0;
+    }
+
+    .carousel-slide{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      transition:opacity 1.5s ease-in-out, transform 10s linear;
+      transform:scale(1.1);
+    }
+
+    .carousel-slide.active{
+      opacity:1;
+      transform:scale(1);
+    }
+
+    .lock-video-layer{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      overflow:hidden;
+    }
+
+    .lock-video-layer video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.20;
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      background:
+        radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+    }
+
+    .glass-noti{
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,0.15);
+      border-radius:20px;
+      transition:all .3s ease;
+      box-shadow:0 16px 30px rgba(0,0,0,.18);
+    }
+
+    .glass-noti:hover{
+      background:rgba(255,255,255,0.12);
+      transform:scale(1.02);
+    }
+
+    .fade-in{
+      animation:fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .unlock-btn{
+      position:relative;
+      overflow:hidden;
+      transition:all .4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .unlock-btn:hover{
+      background:rgba(255,255,255,0.12);
+      transform:translateY(-3px);
+      box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .shimmer{
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      animation:shimmer 4s infinite;
+    }
+
+    .clock-modern{
+      font-weight:800;
+      letter-spacing:-0.04em;
+      filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+    }
+
+    .logo-container{
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    }
+
+    .unlock-arrow{
+      width:44px;
+      height:44px;
+      border-radius:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      color:#000;
+      box-shadow:0 16px 30px rgba(0,0,0,.26);
+      animation:bob 1.8s ease-in-out infinite;
+      flex:0 0 auto;
+    }
+
+    /* APP */
+    .screen{
+      position:relative;
+      z-index:2;
+      width:100vw;
+      height:100vh;
+      padding:20px;
+      display:grid;
+      grid-template-columns:132px 1fr;
+      gap:20px;
+      overflow:hidden;
+    }
+
+    .sidebar{
+      border-radius:34px;
+      padding:18px 14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:0;
+      overflow:hidden;
+    }
+
+    .sidebar-top{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-height:0;
+      flex:1;
+    }
+
+    .logo-box{
+      height:92px;
+      border-radius:26px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+
+    .logo-box img{
+      width:84%;
+      max-height:76%;
+      object-fit:contain;
+      filter:drop-shadow(0 8px 18px rgba(21,151,212,.26));
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding-right:4px;
+      flex:1;
+      min-height:0;
+      scrollbar-width:thin;
+    }
+
+    .menu-btn{
+      height:84px;
+      min-height:84px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.82);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      cursor:pointer;
+      font:inherit;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.04em;
+      transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+      flex:0 0 auto;
+    }
+
+    .menu-btn i{font-size:22px;}
+
+    .menu-btn:hover,.menu-btn.active{
+      transform:translateY(-2px) scale(1.02);
+      background:linear-gradient(135deg, rgba(21,151,212,.95), rgba(40,184,255,.90));
+      box-shadow:0 14px 28px rgba(21,151,212,.22);
+      color:#fff;
+    }
+
+    .sidebar-badge{
+      border-radius:18px;
+      padding:12px;
+      text-align:center;
+      font-size:13px;
+      font-weight:700;
+      color:rgba(255,255,255,.9);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      flex:0 0 auto;
+      margin-top:12px;
+    }
+
+    .main-shell{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      min-width:0;
+      min-height:0;
+    }
+
+    .topbar{
+      min-height:100px;
+      border-radius:32px;
+      padding:18px 28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex:0 0 auto;
+    }
+
+    .topbar-left{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      min-width:0;
+    }
+
+    .topbar-mark{
+      width:68px;
+      height:68px;
+      border-radius:20px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+
+    .topbar-mark img{
+      width:84%;
+      height:84%;
+      object-fit:contain;
+    }
+
+    .topbar h1{
+      margin:0;
+      font-size:clamp(1.8rem,2.6vw,2.8rem);
+      line-height:1;
+    }
+
+    .topbar p{
+      margin:7px 0 0;
+      font-size:1rem;
+      color:var(--text-soft);
+    }
+
+    .topbar-right{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:12px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      color:rgba(255,255,255,.92);
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .content{
+      position:relative;
+      flex:1;
+      min-height:0;
+      border-radius:36px;
+      overflow:hidden;
+    }
+
+    .view{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(18px) scale(.985);
+      transition:opacity .4s ease, transform .4s ease;
+      padding:28px;
+      overflow-y:auto;
+      overflow-x:hidden;
+      scrollbar-width:thin;
+      -webkit-overflow-scrolling:touch;
+      touch-action:pan-y;
+    }
+
+    .view.active{
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(0) scale(1);
+      animation:fadeUp .35s ease;
+    }
+
+    .hero-grid,.cards-4,.cards-3,.cards-2,.stats-grid,.locations-grid,.org-grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .hero-grid{grid-template-columns:1.3fr .95fr;margin-bottom:18px;}
+    .stats-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px;}
+    .cards-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+    .cards-3,.locations-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+    .cards-2,.org-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+
+    .hero-card,.panel-card,.card,.gallery-item,.catalog-card,.team-card,.route-card,.location-card,.service-card,.stat-card,.org-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:30px;
+      background:linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 18px 40px rgba(2,6,23,.16);
+    }
+
+    .hero-card{
+      min-height:400px;
+      padding:32px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        linear-gradient(120deg, rgba(2,12,20,.78), rgba(4,26,38,.52)),
+        url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80') center/cover;
+    }
+
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      inset:auto auto -60px -60px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(40,184,255,.16), transparent 70%);
+    }
+
+    .hero-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width:fit-content;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
+      font-size:.86rem;
+      font-weight:800;
+    }
+
+    .pulse-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#35d67a;
+      animation:pulseSoft 2s infinite;
+    }
+
+    .hero-card h2{
+      margin:18px 0 12px;
+      font-size:clamp(2.6rem,4.4vw,4.8rem);
+      line-height:.94;
+      max-width:760px;
+    }
+
+    .hero-card p{
+      max-width:800px;
+      font-size:1.08rem;
+      line-height:1.7;
+      color:rgba(255,255,255,.82);
+      margin:0;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    .cta{
+      border:0;
+      border-radius:18px;
+      padding:15px 20px;
+      font:inherit;
+      font-size:.98rem;
+      font-weight:800;
+      cursor:pointer;
+      transition:transform .24s ease, opacity .24s ease;
+    }
+
+    .cta:hover{transform:translateY(-2px);}
+    .cta-primary{background:linear-gradient(135deg, var(--brand), var(--brand2));color:#fff;}
+    .cta-secondary{background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.14);}
+
+    .panel-card,.stat-card,.card,.catalog-card,.team-card,.route-card,.location-card,.service-card,.org-card{
+      padding:22px;
+    }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:16px;
+    }
+
+    .section-title h3{
+      margin:0;
+      font-size:clamp(1.3rem,2vw,2rem);
+    }
+
+    .section-title p{
+      margin:6px 0 0;
+      color:var(--text-soft);
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      font-size:.84rem;
+      font-weight:800;
+      color:rgba(255,255,255,.92);
+      white-space:nowrap;
+    }
+
+    .stat-label{
+      font-size:.76rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.62);
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .stat-number{
+      font-size:clamp(1.8rem,2vw,2.6rem);
+      font-weight:900;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .soft-text{color:var(--text-soft);}
+
+    .touch-card{
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+      cursor:pointer;
+    }
+
+    .touch-card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(126,231,255,.32);
+      box-shadow:0 22px 42px rgba(2,6,23,.24);
+    }
+
+    .icon-badge,.team-avatar{
+      width:60px;
+      height:60px;
+      border-radius:18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.16);
+      margin-bottom:16px;
+      font-size:1.36rem;
+    }
+
+    .team-avatar{font-weight:900;}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:14px;
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.9);
+      font-size:.9rem;
+      font-weight:700;
+    }
+
+    .gallery-item{
+      min-height:280px;
+      display:flex;
+      align-items:end;
+      background-size:cover;
+      background-position:center;
+    }
+
+    .gallery-overlay{
+      width:100%;
+      padding:18px;
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.72));
+    }
+
+    .list-clean{
+      list-style:none;
+      margin:16px 0 0;
+      padding:0;
+      display:grid;
+      gap:10px;
+    }
+
+    .list-clean li{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.9);
+    }
+
+    .org-node{
+      border-left:5px solid var(--brand2);
+      border-radius:22px;
+      padding:16px;
+      background:rgba(255,255,255,.06);
+      margin-bottom:12px;
+    }
+
+    .org-node small{
+      color:rgba(255,255,255,.6);
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .org-node strong{
+      display:block;
+      font-size:1.05rem;
+      margin-bottom:2px;
+    }
+
+    .promo-slide{
+      opacity:0;
+      transition:opacity 1s ease;
+      z-index:1;
+    }
+
+    .promo-slide.active{
+      opacity:1;
+      z-index:1;
+    }
+
+    .promo-dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.35);
+      display:inline-block;
+      transition:all .3s ease;
+    }
+
+    .promo-dot.active{
+      width:28px;
+      background:#fff;
+    }
+
+    .unlock-btn,
+    .menu-btn,
+    .card,
+    .catalog-card,
+    .gallery-item,
+    .service-card,
+    .route-card,
+    .location-card,
+    .team-card,
+    .org-card,
+    .cta,
+    .pill,
+    .tag {
+      touch-action: manipulation;
+    }
+
+    @media (max-width:1380px){
+      .stats-grid,.cards-4{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .cards-3,.hero-grid,.locations-grid,.org-grid{grid-template-columns:1fr;}
+    }
+
+    @media (max-width:980px){
+      body{overflow:auto;}
+      .screen{
+        display:block;
+        height:auto;
+        min-height:100vh;
+        padding:14px;
+      }
+      .sidebar{
+        margin-bottom:14px;
+        border-radius:26px;
+      }
+      .menu{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        overflow:visible;
+        padding-right:0;
+      }
+      .menu-btn{
+        height:76px;
+        min-height:76px;
+      }
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .topbar-right{
+        justify-content:flex-start;
+      }
+      .content{
+        min-height:78vh;
+      }
+      .stats-grid,.cards-4,.cards-3,.cards-2,.locations-grid,.org-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orb"></div>
+  <div class="bg-orb-2"></div>
+  <div class="bg-grid"></div>
+  <div class="light-sweep"></div>
+
+  <!-- Pantalla de inicio / bloqueo -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="carousel-container">
+      <div class="carousel-slide active" style="background-image:url('https://www.bodevidrio.com/IMG/EXH_3.JPG')"></div>
+      <div class="carousel-slide" style="background-image:url('https://www.bodevidrio.com/SALA%20EXHIBICION/820X312%20px%20-%20Comedor02.jpg')"></div>
+      <div class="carousel-slide" style="background-image:url('https://www.bodevidrio.com/IMG/EXH_3.JPG')"></div>
+
+      <div class="lock-video-layer">
+        <video autoplay muted loop playsinline>
+          <source src="https://cdn.coverr.co/videos/coverr-modern-building-facade-1568385292152?download=1080p" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="overlay"></div>
+    </div>
+
+    <header class="w-full flex flex-col items-center gap-4 mt-2 md:mt-4 fade-in" style="animation-delay:0.1s; position:relative; z-index:3;">
+      <div class="logo-container">
+        <img src="https://www.bodevidrio.com/IMG/logo1.png" alt="Bodevidrio Logo" class="h-14 md:h-20 object-contain" onerror="this.src='https://via.placeholder.com/200x80?text=BODEVIDRIO'">
+      </div>
+      <p id="currentDate" class="text-[10px] md:text-sm font-semibold opacity-70 uppercase tracking-[0.3em]"></p>
+    </header>
+
+    <main class="text-center max-w-2xl w-full px-4 flex flex-col items-center fade-in" style="animation-delay:0.3s; position:relative; z-index:3;">
+      <h1 id="currentTime" class="clock-modern text-7xl md:text-9xl mb-4 md:mb-6">00:00</h1>
+
+      <div class="glass p-6 md:p-10 space-y-4 w-full mb-6">
+        <h2 class="text-xl md:text-3xl font-semibold tracking-tight">
+          Bienvenido a <span class="text-blue-400">Bodevidrio</span>
+        </h2>
+        <p class="text-sm md:text-lg font-light leading-relaxed opacity-80">
+          Te invitamos a interactuar en nuestra app para conocer más acerca de nosotros y descubrir soluciones innovadoras en vidrio.
+        </p>
+      </div>
+
+      <div class="glass-noti p-4 md:p-5 w-full max-w-md flex items-center gap-4 text-left cursor-pointer group">
+        <div class="relative">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 2v4a2 2 0 002 2h4" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12h10M7 16h10" />
+            </svg>
+          </div>
+          <span class="absolute -top-1 -right-1 flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+          </span>
+        </div>
+
+        <div class="flex-1 min-w-0">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Noticias Nuevas</span>
+            <span class="text-[9px] opacity-40">Ahora</span>
+          </div>
+          <p class="text-xs md:text-sm font-medium truncate group-hover:text-blue-200 transition-colors">
+            ¡Descubre nuestras nuevas colecciones!
+          </p>
+          <p class="text-[10px] md:text-xs opacity-60">
+            Toca para explorar lo último en tecnología de vidrios.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="w-full max-w-sm mb-6 md:mb-10 fade-in" style="animation-delay:0.5s; position:relative; z-index:3;">
+      <button id="unlockButton" class="unlock-btn glass w-full py-4 md:py-5 px-8 flex items-center justify-between group">
+        <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase opacity-60 group-hover:opacity-100 transition-opacity">
+          Comenzar experiencia
+        </span>
+        <div class="unlock-arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </div>
+        <div class="shimmer"></div>
+      </button>
+      <p class="text-center text-[10px] md:text-xs mt-4 opacity-70 tracking-[0.18em] uppercase">
+        Desliza hacia arriba o a la derecha para entrar
+      </p>
+    </footer>
+  </div>
+
+  <!-- Aplicación -->
+  <div class="screen">
+    <aside class="sidebar glass">
+      <div class="sidebar-top">
+        <div class="logo-box">
+          <img src="https://www.bodevidrio.com/IMG/logo1.png" alt="Logo Bodevidrio">
+        </div>
+
+        <div class="menu">
+          <button class="menu-btn active" data-view="inicio"><i class="fa-solid fa-house"></i><span>Inicio</span></button>
+          <button class="menu-btn" data-view="promociones"><i class="fa-solid fa-bullhorn"></i><span>Promos</span></button>
+          <button class="menu-btn" data-view="catalogo"><i class="fa-solid fa-cubes"></i><span>Artículos</span></button>
+          <button class="menu-btn" data-view="galeria"><i class="fa-solid fa-images"></i><span>Galería</span></button>
+          <button class="menu-btn" data-view="servicios"><i class="fa-solid fa-briefcase"></i><span>Servicios</span></button>
+          <button class="menu-btn" data-view="empresas"><i class="fa-solid fa-building"></i><span>Empresas</span></button>
+          <button class="menu-btn" data-view="ubicaciones"><i class="fa-solid fa-location-dot"></i><span>Ubicaciones</span></button>
+          <button class="menu-btn" data-view="rutas"><i class="fa-solid fa-route"></i><span>Rutas</span></button>
+          <button class="menu-btn" data-view="personal"><i class="fa-solid fa-users"></i><span>Personal</span></button>
+          <button class="menu-btn" data-view="areas"><i class="fa-solid fa-sitemap"></i><span>Áreas</span></button>
+        </div>
+      </div>
+
+      <div class="sidebar-badge"><i class="fa-solid fa-hand-pointer"></i> Kiosko PRO</div>
+    </aside>
+
+    <main class="main-shell">
+      <header class="topbar glass">
+        <div class="topbar-left">
+          <div class="topbar-mark">
+            <img src="https://www.bodevidrio.com/IMG/logo1.png" alt="Grupo Bodevidrio">
+          </div>
+          <div>
+            <h1>Grupo Bodevidrio</h1>
+            <p>Presentación corporativa de productos, promociones, servicios, ubicaciones y empresas del grupo.</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="pill"><i class="fa-solid fa-clock"></i> <span id="headerClock">00:00</span></div>
+          <div class="pill"><i class="fa-solid fa-building"></i> Grupo empresarial en vidrio y soluciones arquitectónicas</div>
+        </div>
+      </header>
+
+      <section class="content glass">
+        <div class="view active" id="inicio">
+          <div class="hero-grid">
+            <article class="hero-card touch-card">
+              <div>
+                <div class="hero-eyebrow"><span class="pulse-dot"></span> Grupo Bodevidrio</div>
+                <h2>Interactúa con nosotros para conocernos más</h2>
+                <p>Conoce nuestro catálogo, promociones, proyectos, servicios, empresas del grupo, ubicaciones, rutas y áreas clave en una presentación visual elegante y profesional.</p>
+                <div class="cta-row">
+                  <button class="cta cta-primary" onclick="openView('promociones')"><i class="fa-solid fa-bullhorn"></i> Ver promociones</button>
+                  <button class="cta cta-secondary" onclick="openView('catalogo')"><i class="fa-solid fa-box-open"></i> Ver catálogo</button>
+                  <button class="cta cta-secondary" onclick="openView('empresas')"><i class="fa-solid fa-building"></i> Nuestras empresas</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel-card">
+              <div class="section-title">
+                <div>
+                  <h3>Inspiración visual</h3>
+                  <p>Ejemplos visuales para enriquecer la experiencia al inicio.</p>
+                </div>
+                <div class="tag"><i class="fa-solid fa-video"></i> Inicio dinámico</div>
+              </div>
+
+              <div class="cards-2">
+                <div class="gallery-item touch-card" style="min-height:170px;background-image:url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80')">
+                  <div class="gallery-overlay"><h3>Fachadas de vidrio</h3><p class="soft-text">Proyectos con presencia arquitectónica.</p></div>
+                </div>
+                <div class="gallery-item touch-card" style="min-height:170px;background-image:url('https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80')">
+                  <div class="gallery-overlay"><h3>Video de proyecto</h3><p class="soft-text">Contenido de ejemplo para showroom.</p></div>
+                </div>
+              </div>
+
+              <div class="chips">
+                <div class="chip"><i class="fa-solid fa-camera"></i> Fotografías</div>
+                <div class="chip"><i class="fa-solid fa-play"></i> Videos</div>
+                <div class="chip"><i class="fa-solid fa-star"></i> Presentación premium</div>
+              </div>
+            </article>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card touch-card"><div class="stat-label">Líneas de negocio</div><div class="stat-number">08</div><div class="soft-text">Vidrio templado, aluminio, herrajes, espejos y soluciones especiales.</div></article>
+            <article class="stat-card touch-card"><div class="stat-label">Servicios clave</div><div class="stat-number">12+</div><div class="soft-text">Medición, corte, instalación, mantenimiento y asesoría integral.</div></article>
+            <article class="stat-card touch-card"><div class="stat-label">Cobertura</div><div class="stat-number">Rutas</div><div class="soft-text">Entregas, visitas y atención para clientes residenciales y empresariales.</div></article>
+            <article class="stat-card touch-card"><div class="stat-label">Experiencia</div><div class="stat-number">PRO</div><div class="soft-text">Interfaz profesional optimizada para pantallas grandes horizontales.</div></article>
+          </div>
+
+          <div class="cards-4">
+            <article class="card touch-card" onclick="openView('promociones')"><div class="icon-badge"><i class="fa-solid fa-bullhorn"></i></div><h3>Promociones y noticias</h3><p class="soft-text">Publica campañas, lanzamientos y promociones destacadas en carrusel.</p></article>
+            <article class="card touch-card" onclick="openView('catalogo')"><div class="icon-badge"><i class="fa-solid fa-boxes-stacked"></i></div><h3>Artículos y catálogo</h3><p class="soft-text">Cristales, herrajes, cancelería, espejos y soluciones por proyecto.</p></article>
+            <article class="card touch-card" onclick="openView('galeria')"><div class="icon-badge"><i class="fa-solid fa-camera-retro"></i></div><h3>Galería visual</h3><p class="soft-text">Fotografías de productos, instalaciones y proyectos destacados.</p></article>
+            <article class="card touch-card" onclick="openView('empresas')"><div class="icon-badge"><i class="fa-solid fa-building"></i></div><h3>Nuestras empresas</h3><p class="soft-text">Consulta sedes, contactos y ubicación de cada empresa del grupo.</p></article>
+          </div>
+        </div>
+
+        <div class="view" id="promociones">
+          <div class="section-title">
+            <div>
+              <h3>Promociones y noticias</h3>
+              <p>Espacio visual para campañas, descuentos, novedades y lanzamientos.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-bullhorn"></i> Promociones activas</div>
+          </div>
+
+          <div class="panel-card" style="padding:26px;">
+            <div style="position:relative; min-height:420px; border-radius:28px; overflow:hidden;">
+              <div class="promo-slide active" style="position:absolute; inset:0; background:linear-gradient(120deg, rgba(2,12,20,.48), rgba(4,26,38,.20)), url('https://www.bodevidrio.com/IMG/EXH_3.JPG') center/cover;"></div>
+              <div class="promo-slide" style="position:absolute; inset:0; background:linear-gradient(120deg, rgba(2,12,20,.48), rgba(4,26,38,.20)), url('https://www.bodevidrio.com/SALA%20EXHIBICION/820X312%20px%20-%20Comedor02.jpg') center/cover;"></div>
+              <div class="promo-slide" style="position:absolute; inset:0; background:linear-gradient(120deg, rgba(2,12,20,.48), rgba(4,26,38,.20)), url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80') center/cover;"></div>
+
+              <div style="position:absolute; inset:0; display:flex; flex-direction:column; justify-content:end; padding:32px; background:linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.52)); z-index:2;">
+                <div class="tag" style="width:fit-content; margin-bottom:14px;"><i class="fa-solid fa-star"></i> Destacado</div>
+                <h2 id="promoTitle" style="margin:0 0 10px; font-size:clamp(2rem, 3vw, 3rem);">Promociones especiales en exhibición</h2>
+                <p id="promoText" style="margin:0; max-width:780px; color:rgba(255,255,255,.88); font-size:1.04rem; line-height:1.7;">Aprovecha precios especiales, colecciones destacadas y novedades para tus proyectos residenciales y comerciales.</p>
+                <div id="promoDots" style="display:flex; gap:10px; margin-top:20px;">
+                  <span class="promo-dot active"></span>
+                  <span class="promo-dot"></span>
+                  <span class="promo-dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cards-3" style="margin-top:18px;">
+            <article class="card"><div class="icon-badge"><i class="fa-solid fa-percent"></i></div><h3>Promoción de temporada</h3><p class="soft-text">Destaca descuentos, beneficios por volumen o paquetes especiales.</p></article>
+            <article class="card"><div class="icon-badge"><i class="fa-solid fa-newspaper"></i></div><h3>Noticias recientes</h3><p class="soft-text">Comunica lanzamientos, novedades de showroom y nuevas líneas de producto.</p></article>
+            <article class="card"><div class="icon-badge"><i class="fa-solid fa-image"></i></div><h3>Campañas visuales</h3><p class="soft-text">Usa imágenes llamativas de proyectos, productos o colecciones destacadas.</p></article>
+          </div>
+        </div>
+
+        <div class="view" id="catalogo">
+          <div class="section-title">
+            <div>
+              <h3>Catálogo de artículos</h3>
+              <p>Productos organizados para una navegación clara, visual y comercial.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-tags"></i> Catálogo interactivo</div>
+          </div>
+
+          <div class="cards-4">
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-border-all"></i></div><h3>Cristal templado 6 mm</h3><p class="soft-text">Ideal para canceles, puertas, divisiones y fachadas interiores.</p><div class="chips"><div class="chip"><i class="fa-solid fa-ruler-combined"></i> Corte a medida</div><div class="chip"><i class="fa-solid fa-dollar-sign"></i> Precio editable</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-window-maximize"></i></div><h3>Cancelería de aluminio</h3><p class="soft-text">Sistemas corredizos, abatibles y líneas residenciales o comerciales.</p><div class="chips"><div class="chip"><i class="fa-solid fa-swatchbook"></i> Acabados</div><div class="chip"><i class="fa-solid fa-people-arrows"></i> Por proyecto</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-gem"></i></div><h3>Espejos decorativos</h3><p class="soft-text">Opciones para baño, sala, gimnasios, elevadores y diseño interior.</p><div class="chips"><div class="chip"><i class="fa-solid fa-wand-magic-sparkles"></i> Personalizable</div><div class="chip"><i class="fa-solid fa-house"></i> Residencial y comercial</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-screwdriver-wrench"></i></div><h3>Herrajes inox</h3><p class="soft-text">Bisagras, jaladeras, conectores, soportes y accesorios premium.</p><div class="chips"><div class="chip"><i class="fa-solid fa-shield"></i> Resistencia</div><div class="chip"><i class="fa-solid fa-layer-group"></i> Múltiples líneas</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-building"></i></div><h3>Fachadas integrales</h3><p class="soft-text">Soluciones para proyectos arquitectónicos, corporativos y comerciales.</p><div class="chips"><div class="chip"><i class="fa-solid fa-hard-hat"></i> Ingeniería</div><div class="chip"><i class="fa-solid fa-file-lines"></i> Proyecto especial</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-door-open"></i></div><h3>Puertas de cristal</h3><p class="soft-text">Accesos templados, corredizos, abatibles y automáticos.</p><div class="chips"><div class="chip"><i class="fa-solid fa-gear"></i> Configurable</div><div class="chip"><i class="fa-solid fa-wrench"></i> Instalación</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-shop"></i></div><h3>Mostradores y vitrinas</h3><p class="soft-text">Diseños para tiendas, joyerías, farmacias y espacios comerciales.</p><div class="chips"><div class="chip"><i class="fa-solid fa-pen-ruler"></i> A medida</div><div class="chip"><i class="fa-solid fa-star"></i> Premium</div></div></article>
+            <article class="catalog-card touch-card"><div class="icon-badge"><i class="fa-solid fa-layer-group"></i></div><h3>Vidrio laminado</h3><p class="soft-text">Mayor seguridad y control para áreas residenciales y corporativas.</p><div class="chips"><div class="chip"><i class="fa-solid fa-shield-halved"></i> Seguridad</div><div class="chip"><i class="fa-solid fa-volume-high"></i> Aislamiento</div></div></article>
+          </div>
+        </div>
+
+        <div class="view" id="galeria">
+          <div class="section-title">
+            <div>
+              <h3>Galería de productos y proyectos</h3>
+              <p>Muestra visualmente acabados, instalaciones y trabajos destacados.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-expand"></i> Vista premium</div>
+          </div>
+
+          <div class="cards-4">
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Canceles y divisiones</h3><p class="soft-text">Proyectos residenciales con acabados limpios y modernos.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Espejos decorativos</h3><p class="soft-text">Instalaciones para interiores, negocios y hogares.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Fachadas comerciales</h3><p class="soft-text">Frentes arquitectónicos con presencia profesional.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Puertas y accesos</h3><p class="soft-text">Líneas limpias, herrajes elegantes y funcionalidad.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Cocinas y barras</h3><p class="soft-text">Vidrios y cubiertas para espacios sofisticados.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Mostradores y vitrinas</h3><p class="soft-text">Presentación comercial y protección de producto.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1462396881884-de2c07cb95ed?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Proyectos especiales</h3><p class="soft-text">Diseños personalizados según necesidad del cliente.</p></div></article>
+            <article class="gallery-item touch-card" style="background-image:url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80')"><div class="gallery-overlay"><h3>Vidrio arquitectónico</h3><p class="soft-text">Aplicaciones premium para proyectos modernos.</p></div></article>
+          </div>
+        </div>
+
+        <div class="view" id="servicios">
+          <div class="section-title">
+            <div>
+              <h3>Servicios</h3>
+              <p>Presenta toda tu capacidad operativa y técnica.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-handshake"></i> Servicio integral</div>
+          </div>
+
+          <div class="cards-4">
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-comments"></i></div><h3>Asesoría comercial</h3><p class="soft-text">Acompañamiento para seleccionar materiales, acabados y propuestas.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-ruler"></i></div><h3>Levantamiento y medición</h3><p class="soft-text">Visitas técnicas para proyectos residenciales y comerciales.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-scissors"></i></div><h3>Corte y fabricación</h3><p class="soft-text">Procesos personalizados según especificación y plano.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-fire-flame-curved"></i></div><h3>Templado y procesos</h3><p class="soft-text">Producción especializada para seguridad y acabado final.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-screwdriver"></i></div><h3>Instalación profesional</h3><p class="soft-text">Montaje, ajuste y entrega final por personal técnico capacitado.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-wrench"></i></div><h3>Mantenimiento</h3><p class="soft-text">Ajustes, reposiciones y servicio postventa.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-clipboard-check"></i></div><h3>Supervisión de obra</h3><p class="soft-text">Seguimiento y control para proyectos ejecutivos y corporativos.</p></article>
+            <article class="service-card touch-card"><div class="icon-badge"><i class="fa-solid fa-truck"></i></div><h3>Entrega programada</h3><p class="soft-text">Coordinación logística por zona, horario o ruta de cliente.</p></article>
+          </div>
+        </div>
+
+        <div class="view" id="empresas">
+          <div class="section-title">
+            <div>
+              <h3>Nuestras empresas</h3>
+              <p>Consulta cada empresa del grupo, su ubicación y datos de contacto.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-building"></i> Grupo empresarial</div>
+          </div>
+
+          <div class="cards-3">
+            <article class="location-card touch-card">
+              <div class="icon-badge"><i class="fa-solid fa-city"></i></div>
+              <h3>BODEVIDRIO</h3>
+              <p class="soft-text">Calzada de los Chinacos #609,<br>col. San Gabriel. C.P. 36640.</p>
+              <div class="chips">
+                <div class="chip"><i class="fa-solid fa-phone"></i> 462 144 44 44</div>
+                <div class="chip"><i class="fa-solid fa-envelope"></i> ventasirapuato@bode-vidrio.com</div>
+              </div>
+            </article>
+
+            <article class="location-card touch-card">
+              <div class="icon-badge"><i class="fa-solid fa-store"></i></div>
+              <h3>VIDRIOS Y MÁS</h3>
+              <p class="soft-text">Héroes de la Independencia #1705,<br>col. Killian. C.P. 37260.</p>
+              <div class="chips">
+                <div class="chip"><i class="fa-solid fa-phone"></i> 477 211 50 50</div>
+                <div class="chip"><i class="fa-solid fa-envelope"></i> ventasleon@bode-vidrio.com</div>
+              </div>
+            </article>
+
+            <article class="location-card touch-card">
+              <div class="icon-badge"><i class="fa-solid fa-building-columns"></i></div>
+              <h3>SOLUCIONES ARQUITECTONICAS GLASS</h3>
+              <p class="soft-text">Av. 5 de Febrero 1309, bodega B3,<br>col. Carrillo Puerto. C.P. 76138.</p>
+              <div class="chips">
+                <div class="chip"><i class="fa-solid fa-phone"></i> 442 290 34 21</div>
+                <div class="chip"><i class="fa-solid fa-envelope"></i> ventasqueretaro@bode-vidrio.com</div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="view" id="ubicaciones">
+          <div class="section-title">
+            <div>
+              <h3>Ubicaciones y puntos de atención</h3>
+              <p>Agrega sucursales, planta, showroom y centros de distribución.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-map"></i> Cobertura geográfica</div>
+          </div>
+
+          <div class="locations-grid">
+            <article class="location-card touch-card"><div class="icon-badge"><i class="fa-solid fa-industry"></i></div><h3>Planta principal</h3><p class="soft-text">Producción, templado, almacén y salida de rutas.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 101</div><div class="chip"><i class="fa-solid fa-box"></i> Almacén</div><div class="chip"><i class="fa-solid fa-truck-ramp-box"></i> Embarques</div></div></article>
+            <article class="location-card touch-card"><div class="icon-badge"><i class="fa-solid fa-store"></i></div><h3>Showroom / ventas</h3><p class="soft-text">Atención al cliente, cotizaciones, exhibición y cierres de venta.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 201</div><div class="chip"><i class="fa-solid fa-users"></i> Recepción</div><div class="chip"><i class="fa-solid fa-file-invoice"></i> Cotizaciones</div></div></article>
+            <article class="location-card touch-card"><div class="icon-badge"><i class="fa-solid fa-warehouse"></i></div><h3>Centro logístico</h3><p class="soft-text">Preparación de pedidos, organización de entregas y control de ruta.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 301</div><div class="chip"><i class="fa-solid fa-route"></i> Monitoreo</div><div class="chip"><i class="fa-solid fa-location-crosshairs"></i> Cobertura</div></div></article>
+          </div>
+        </div>
+
+        <div class="view" id="rutas">
+          <div class="section-title">
+            <div>
+              <h3>Rutas y cobertura comercial</h3>
+              <p>Puedes usar esta sección para mostrar zonas de entrega y visitas.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-truck-fast"></i> Logística y operación</div>
+          </div>
+
+          <div class="cards-2">
+            <article class="route-card touch-card"><div class="icon-badge"><i class="fa-solid fa-route"></i></div><h3>Ruta Norte</h3><p class="soft-text">Clientes industriales, constructoras, distribuidores y proyectos grandes.</p><ul class="list-clean"><li><span>Días de operación</span><strong>Lunes / Miércoles / Viernes</strong></li><li><span>Unidad</span><strong>Camión 01</strong></li><li><span>Responsable</span><strong>Coordinación logística</strong></li></ul></article>
+            <article class="route-card touch-card"><div class="icon-badge"><i class="fa-solid fa-road"></i></div><h3>Ruta Centro</h3><p class="soft-text">Entrega express, mostrador, sucursales y atención a obra.</p><ul class="list-clean"><li><span>Días de operación</span><strong>Diaria</strong></li><li><span>Unidad</span><strong>Camioneta 02</strong></li><li><span>Responsable</span><strong>Embarques y monitoreo</strong></li></ul></article>
+            <article class="route-card touch-card"><div class="icon-badge"><i class="fa-solid fa-location-arrow"></i></div><h3>Ruta Sur</h3><p class="soft-text">Cobertura para obras residenciales y clientes recurrentes.</p><ul class="list-clean"><li><span>Días de operación</span><strong>Martes / Jueves</strong></li><li><span>Unidad</span><strong>Camión 03</strong></li><li><span>Responsable</span><strong>Supervisor de ruta</strong></li></ul></article>
+            <article class="route-card touch-card"><div class="icon-badge"><i class="fa-solid fa-map-pin"></i></div><h3>Ruta Especial / Proyectos</h3><p class="soft-text">Traslados programados para instalaciones y proyectos corporativos.</p><ul class="list-clean"><li><span>Disponibilidad</span><strong>Con agenda previa</strong></li><li><span>Unidad</span><strong>Según volumen</strong></li><li><span>Responsable</span><strong>Gerencia operativa</strong></li></ul></article>
+          </div>
+        </div>
+
+        <div class="view" id="personal">
+          <div class="section-title">
+            <div>
+              <h3>Personal, contactos y extensiones</h3>
+              <p>Úsalo para ubicar rápidamente a cada responsable por área.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-address-book"></i> Directorio interno</div>
+          </div>
+
+          <div class="cards-4">
+            <article class="team-card touch-card"><div class="team-avatar">VG</div><h3>Ventas generales</h3><p class="soft-text">Atención inicial, seguimiento de clientes y cotizaciones.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 201</div><div class="chip"><i class="fa-solid fa-envelope"></i> ventas@empresa.com</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">PR</div><h3>Producción</h3><p class="soft-text">Planificación, procesos, templado y control de fabricación.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 101</div><div class="chip"><i class="fa-solid fa-industry"></i> Planta</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">LG</div><h3>Logística</h3><p class="soft-text">Rutas, entregas, seguimiento y coordinación de embarques.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 301</div><div class="chip"><i class="fa-solid fa-truck"></i> Centro logístico</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">AD</div><h3>Administración</h3><p class="soft-text">Facturación, cobranza, pagos y soporte administrativo.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 401</div><div class="chip"><i class="fa-solid fa-file-invoice-dollar"></i> Oficina central</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">IN</div><h3>Instalaciones</h3><p class="soft-text">Brigadas, ejecución en sitio y entrega final.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 302</div><div class="chip"><i class="fa-solid fa-helmet-safety"></i> Campo</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">AC</div><h3>Atención a clientes</h3><p class="soft-text">Recepción, seguimiento, informes y soporte.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 202</div><div class="chip"><i class="fa-solid fa-headset"></i> Recepción</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">CM</div><h3>Compras y materiales</h3><p class="soft-text">Abastecimiento, herrajes, perfiles y consumibles.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 105</div><div class="chip"><i class="fa-solid fa-cart-flatbed"></i> Abastecimiento</div></div></article>
+            <article class="team-card touch-card"><div class="team-avatar">GG</div><h3>Gerencia general</h3><p class="soft-text">Dirección, proyectos especiales y decisiones estratégicas.</p><div class="chips"><div class="chip"><i class="fa-solid fa-phone"></i> Ext. 001</div><div class="chip"><i class="fa-solid fa-briefcase"></i> Dirección</div></div></article>
+          </div>
+        </div>
+
+        <div class="view" id="areas">
+          <div class="section-title">
+            <div>
+              <h3>Áreas internas y qué vende cada una</h3>
+              <p>Organiza la estructura del negocio para clientes y colaboradores.</p>
+            </div>
+            <div class="tag"><i class="fa-solid fa-diagram-project"></i> Organigrama operativo</div>
+          </div>
+
+          <div class="org-grid">
+            <article class="org-card">
+              <div class="org-node"><small>Nivel 1</small><strong>Gerencia general</strong>Supervisión integral del negocio, alianzas, estrategia comercial y proyectos clave.</div>
+              <div class="org-node"><small>Nivel 2</small><strong>Área comercial</strong>Vende cristales, cancelería, fachadas, herrajes, espejos y proyectos personalizados.</div>
+              <div class="org-node"><small>Nivel 2</small><strong>Producción</strong>Procesa pedidos, corte, templado, armado y preparación para instalación o entrega.</div>
+              <div class="org-node"><small>Nivel 2</small><strong>Logística y rutas</strong>Gestiona embarques, cobertura, tiempos de entrega y monitoreo de unidades.</div>
+              <div class="org-node"><small>Nivel 2</small><strong>Administración</strong>Facturación, cobranza, soporte documental y control interno.</div>
+            </article>
+
+            <article class="org-card">
+              <h3 style="margin-top:0;">¿Qué vende cada área?</h3>
+              <ul class="list-clean">
+                <li><span>Ventas mostrador</span><strong>Productos rápidos, herrajes y pedidos directos</strong></li>
+                <li><span>Proyectos</span><strong>Fachadas, cancelería, soluciones especiales</strong></li>
+                <li><span>Distribución</span><strong>Materiales, entregas programadas y cobertura</strong></li>
+                <li><span>Instalaciones</span><strong>Montaje, ajustes y servicio postventa</strong></li>
+                <li><span>Atención y recepción</span><strong>Canaliza clientes y coordina seguimiento</strong></li>
+              </ul>
+              <div class="chips" style="margin-top:18px;">
+                <div class="chip"><i class="fa-solid fa-phone"></i> Extensiones visibles</div>
+                <div class="chip"><i class="fa-solid fa-location-dot"></i> Ubicación por departamento</div>
+                <div class="chip"><i class="fa-solid fa-user-tie"></i> Responsables y contacto</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const menuButtons = document.querySelectorAll('.menu-btn');
+    const views = document.querySelectorAll('.view');
+    const lockScreenEl = document.getElementById('lockScreen');
+    const headerClockEl = document.getElementById('headerClock');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const unlockButton = document.getElementById('unlockButton');
+    const currentTimeEl = document.getElementById('currentTime');
+    const currentDateEl = document.getElementById('currentDate');
+
+    const promoSlides = document.querySelectorAll('.promo-slide');
+    const promoDots = document.querySelectorAll('.promo-dot');
+    const promoTitleEl = document.getElementById('promoTitle');
+    const promoTextEl = document.getElementById('promoText');
+
+    let currentSlide = 0;
+    let currentPromo = 0;
+    let inactivityTimer = null;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    const promoContent = [
+      {
+        title: 'Promociones especiales en exhibición',
+        text: 'Aprovecha precios especiales, colecciones destacadas y novedades para tus proyectos residenciales y comerciales.'
+      },
+      {
+        title: 'Nuevas colecciones para interiores',
+        text: 'Conoce líneas decorativas y soluciones elegantes para comedor, sala, baño y espacios comerciales.'
+      },
+      {
+        title: 'Lanzamientos para soluciones arquitectónicas',
+        text: 'Descubre opciones en vidrio y sistemas para proyectos corporativos, fachadas y diseño contemporáneo.'
+      }
+    ];
+
+    function openView(viewId) {
+      views.forEach(view => view.classList.remove('active'));
+      menuButtons.forEach(btn => btn.classList.remove('active'));
+
+      const targetView = document.getElementById(viewId);
+      const targetBtn = document.querySelector('.menu-btn[data-view="' + viewId + '"]');
+
+      if (targetView) targetView.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active');
+
+      resetInactivityTimer();
+    }
+
+    function nextSlide() {
+      if (!slides.length) return;
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function rotatePromos() {
+      if (!promoSlides.length) return;
+
+      promoSlides.forEach(slide => slide.classList.remove('active'));
+      promoDots.forEach(dot => dot.classList.remove('active'));
+
+      currentPromo = (currentPromo + 1) % promoSlides.length;
+
+      promoSlides[currentPromo].classList.add('active');
+      if (promoDots[currentPromo]) promoDots[currentPromo].classList.add('active');
+      if (promoTitleEl) promoTitleEl.textContent = promoContent[currentPromo].title;
+      if (promoTextEl) promoTextEl.textContent = promoContent[currentPromo].text;
+    }
+
+    function updateTime() {
+      const now = new Date();
+
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+
+      const time = `${hours}:${minutes}`;
+      const dateStr = now.toLocaleDateString('es-ES', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+      });
+
+      if (currentTimeEl) currentTimeEl.textContent = time;
+      if (headerClockEl) headerClockEl.textContent = time;
+      if (currentDateEl) currentDateEl.textContent = dateStr;
+    }
+
+    function unlockScreen() {
+      if (lockScreenEl) lockScreenEl.classList.add('hidden');
+      resetInactivityTimer();
+    }
+
+    function relockScreen() {
+      if (lockScreenEl) lockScreenEl.classList.remove('hidden');
+    }
+
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        relockScreen();
+      }, 120000);
+    }
+
+    function handleSwipeUnlock() {
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const minDistance = 45;
+
+      const swipedUp = deltaY < -minDistance;
+      const swipedRight = deltaX > minDistance;
+      const diagonalUpRight = deltaY < -30 && deltaX > 30;
+
+      if (swipedUp || swipedRight || diagonalUpRight) {
+        unlockScreen();
+      }
+    }
+
+    menuButtons.forEach(btn => {
+      btn.addEventListener('click', () => openView(btn.dataset.view));
+    });
+
+    if (unlockButton) {
+      unlockButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        unlockScreen();
+      });
+    }
+
+    if (lockScreenEl) {
+      lockScreenEl.addEventListener('click', () => {
+        unlockScreen();
+      });
+
+      lockScreenEl.addEventListener('touchstart', (e) => {
+        const touch = e.changedTouches[0];
+        touchStartX = touch.screenX;
+        touchStartY = touch.screenY;
+        touchEndX = touch.screenX;
+        touchEndY = touch.screenY;
+      }, { passive: true });
+
+      lockScreenEl.addEventListener('touchmove', (e) => {
+        const touch = e.changedTouches[0];
+        touchEndX = touch.screenX;
+        touchEndY = touch.screenY;
+      }, { passive: true });
+
+      lockScreenEl.addEventListener('touchend', (e) => {
+        const touch = e.changedTouches[0];
+        touchEndX = touch.screenX;
+        touchEndY = touch.screenY;
+        handleSwipeUnlock();
+      }, { passive: true });
+    }
+
+    ['click','touchstart','mousemove','keydown','scroll'].forEach(eventName => {
+      document.addEventListener(eventName, () => {
+        if (lockScreenEl && lockScreenEl.classList.contains('hidden')) {
+          resetInactivityTimer();
+        }
+      }, { passive: true });
+    });
+
+    setInterval(updateTime, 1000);
+    setInterval(nextSlide, 6000);
+    setInterval(rotatePromos, 5000);
+
+    updateTime();
+  </script>
+</body>
+</html>
+
